@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "kazdara_cdn_backend": {
+      "main": "src/kazdara_cdn_backend/main.mo",
+      "type": "motoko"
+    },
+    "kazdara_cdn_frontend": {
+      "dependencies": [
+        "kazdara_cdn_backend"
+      ],
+      "source": [
+        "src/kazdara_cdn_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "kazdara_cdn_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
