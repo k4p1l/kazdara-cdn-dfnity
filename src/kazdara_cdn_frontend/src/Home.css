@@ -1,0 +1,16 @@
+.bg {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+header h1 {
+  position: absolute;
+  left: 45vw;
+  top: -10px;
+  font-family: arame;
+  color: #132a13;
+}
