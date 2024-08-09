@@ -10,7 +10,7 @@
 header h1 {
   position: absolute;
   left: 45vw;
-  top: -10px;
+  top: 10px;
   font-family: arame;
   color: #132a13;
 }
