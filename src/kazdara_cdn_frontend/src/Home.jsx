@@ -85,13 +85,13 @@ function Home() {
         setIsVideo(false);
 
         // Generate and display CDN link
-        const cdnLink = await kazdara_cdn_backend.generateCdnLink(fileId);
-        if (cdnLink) {
-          setCdnLink(cdnLink);
-          alert(`CDN Link: ${cdnLink}`);
-        } else {
-          alert("Failed to generate CDN link.");
-        }
+        // const cdnLink = await kazdara_cdn_backend.generateCdnLink(fileId);
+        // if (cdnLink) {
+        //   setCdnLink(cdnLink);
+        //   alert(`CDN Link: ${cdnLink}`);
+        // } else {
+        //   alert("Failed to generate CDN link.");
+        // }
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Error uploading file. Please try again.");
@@ -148,76 +148,78 @@ function Home() {
         <h1>Kazdara CDN</h1>
         <img className="bg" src={bg} alt="background" />
       </header>
-      <section className="upload-section">
-        <div className="file-upload">
-          <h2>Upload File</h2>
-          <div>
-            <input
-              type="file"
-              className="file-input"
-              onChange={handleFileChange}
-            />
-            <button
-              onClick={uploadFile}
-              disabled={isUploading || !selectedFile}
-            >
-              Upload
-            </button>
-          </div>
-          {isUploading && <div className="loader">Loading...</div>}
-          {filePreviewUrl && (
+      <div className="container">
+        <section className="upload-section">
+          <div className="file-upload">
+            <h2>Upload File</h2>
             <div>
-              <h2>File Preview</h2>
-              {isImage && (
-                <img
-                  src={filePreviewUrl}
-                  alt="Preview"
-                  style={{ maxWidth: "300px", maxHeight: "300px" }}
-                />
-              )}
-              {isVideo && (
-                <video
-                  src={filePreviewUrl}
-                  controls
-                  style={{ maxWidth: "300px", maxHeight: "300px" }}
-                />
-              )}
+              <input
+                type="file"
+                className="file-input"
+                onChange={handleFileChange}
+              />
+              <button
+                onClick={uploadFile}
+                disabled={isUploading || !selectedFile}
+              >
+                Upload
+              </button>
             </div>
-          )}
-        </div>
-      </section>
-      <section className="uploaded-files">
-        <h3>Uploaded Files</h3>
+            {isUploading && <div className="loader">Loading...</div>}
+            {filePreviewUrl && (
+              <div>
+                <h2>File Preview</h2>
+                {isImage && (
+                  <img
+                    src={filePreviewUrl}
+                    alt="Preview"
+                    style={{ maxWidth: "300px", maxHeight: "300px" }}
+                  />
+                )}
+                {isVideo && (
+                  <video
+                    src={filePreviewUrl}
+                    controls
+                    style={{ maxWidth: "300px", maxHeight: "300px" }}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+        <section className="uploaded-files">
+          <h3>Uploaded Files</h3>
 
-        <table>
-          <thead>
-            <tr>
-              <th>File Name</th>
-              <th>Upload Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {files.map(([id, name, uploadDate]) => (
-              <tr key={id}>
-                <td>{name}</td>
-                <td>{uploadDate}</td>
-                <td>
-                  <button onClick={() => downloadFile(id, name)}>
-                    Download
-                  </button>
-                  <button
-                    onClick={() => deleteFile(id)}
-                    disabled={isDeleting[id]}
-                  >
-                    {isDeleting[id] ? "Deleting..." : "Delete"}
-                  </button>
-                </td>
+          <table>
+            <thead>
+              <tr>
+                <th>File Name</th>
+                <th>Upload Date</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+            </thead>
+            <tbody>
+              {files.map(([id, name, uploadDate]) => (
+                <tr key={id}>
+                  <td>{name}</td>
+                  <td>{uploadDate}</td>
+                  <td>
+                    <button onClick={() => downloadFile(id, name)}>
+                      Download
+                    </button>
+                    <button
+                      onClick={() => deleteFile(id)}
+                      disabled={isDeleting[id]}
+                    >
+                      {isDeleting[id] ? "Deleting..." : "Delete"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </div>
     </>
   );
 }

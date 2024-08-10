@@ -9,36 +9,36 @@
 
 header h1 {
   position: absolute;
-  left: 45vw;
-  top: 10px;
+  left: 44vw;
+  top: 6px;
   font-family: arame;
   color: #132a13;
+  font-size: 2.2em;
 }
 
 .logo {
   position: absolute;
   left: 40vw;
-  top: 6px;
-  width: 50px;
+  top: 10px;
+  width: 40px;
 }
 
 .upload-section {
   padding: 2rem;
+  height: 100vh;
 }
 
 .uploaded-files {
-  padding: 2rem;
-  padding-top: 0;
   max-width: 800px;
-  margin: 0 auto;
+  padding: 2rem;
+  height: 100vh;
 }
 
 section h3 {
   margin-top: 0;
-  font-size: 1.4rem;
+  font-size: 1.6em;
   font-family: Arame;
   margin-bottom: 20px;
-  /* margin-top: -130px; */
 }
 
 table {
@@ -86,4 +86,8 @@ td button {
 
 td button:hover {
   color: blue;
+}
+
+.loading {
+  font-family: Consolas;
 }

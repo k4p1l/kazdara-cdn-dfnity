@@ -8,17 +8,24 @@ body {
   overflow: hidden;
 }
 
+.container {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  margin-top: 4rem;
+  height: 100%;
+}
+
 .file-upload {
   display: flex;
   flex-direction: column;
   width: 400px;
-  margin-top: 2rem;
 }
 
 .file-upload h2 {
-  margin-top: 20px;
   margin-bottom: 10px;
   font-family: Arame;
+  font-size: 1.6em;
 }
 
 .file-upload div {
@@ -26,13 +33,14 @@ body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 10px;
+  margin-top: 10px;
 }
 
 .file-input {
   padding-bottom: 10px;
-  font-size: 1em;
-  font-family: "Arame";
+  font-size: 1.1em;
+  font-family: Consolas;
+  font-weight: bold;
 }
 
 ::-webkit-file-upload-button {
@@ -43,6 +51,8 @@ body {
   font-family: Arame;
   border-radius: 0.2em;
   margin-right: 15px;
+  padding: 0.2em 1em 0.2em 1em;
+  width: 140px;
 }
 
 .file-upload button {
