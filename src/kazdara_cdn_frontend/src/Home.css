@@ -14,3 +14,76 @@ header h1 {
   font-family: arame;
   color: #132a13;
 }
+
+.logo {
+  position: absolute;
+  left: 40vw;
+  top: 6px;
+  width: 50px;
+}
+
+.upload-section {
+  padding: 2rem;
+}
+
+.uploaded-files {
+  padding: 2rem;
+  padding-top: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+section h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-family: Arame;
+  margin-bottom: 20px;
+  /* margin-top: -130px; */
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 5px 5px 0px #000000;
+  border: 2px solid #000000;
+}
+
+thead {
+  background-color: #000000;
+}
+
+th {
+  font-family: Consolas;
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: -1px;
+  color: white;
+}
+
+td {
+  font-family: consolas;
+  font-weight: normal;
+  font-size: 1rem;
+  letter-spacing: -0.5px;
+  border-bottom: 1px solid #000000;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+}
+
+td button {
+  background-color: transparent;
+  border: none;
+  padding-right: 10px;
+  font-family: arame;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+td button:hover {
+  color: blue;
+}

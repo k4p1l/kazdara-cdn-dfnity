@@ -1,0 +1,5 @@
+[dependencies]
+base = "0.11.2"
+datetime = "0.3.0"
+http-types = "1.0.1"
+ic = "1.0.1"

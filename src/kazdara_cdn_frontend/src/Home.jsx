@@ -1,6 +1,6 @@
 import bg from "../public/bg.png";
+import logo from "../public/logo.png";
 import "./Home.css";
-import "./ListFiles.css";
 
 import { kazdara_cdn_backend } from "declarations/kazdara_cdn_backend";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ function Home() {
   const [isVideo, setIsVideo] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [cdnLink, setCdnLink] = useState("");
 
   useEffect(() => {
     listFiles();
@@ -62,9 +63,6 @@ function Home() {
       alert("Please select a file first.");
       return;
     }
-
-
-
     setIsUploading(true);
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -85,6 +83,15 @@ function Home() {
         setFilePreviewUrl("");
         setIsImage(false);
         setIsVideo(false);
+
+        // Generate and display CDN link
+        const cdnLink = await kazdara_cdn_backend.generateCdnLink(fileId);
+        if (cdnLink) {
+          setCdnLink(cdnLink);
+          alert(`CDN Link: ${cdnLink}`);
+        } else {
+          alert("Failed to generate CDN link.");
+        }
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Error uploading file. Please try again.");
@@ -133,9 +140,11 @@ function Home() {
       setIsDeleting((prev) => ({ ...prev, [fileId]: false }));
     }
   };
+
   return (
     <>
-      <header>
+      <header className="header">
+        <img className="logo" src={logo} alt="logo" />
         <h1>Kazdara CDN</h1>
         <img className="bg" src={bg} alt="background" />
       </header>
@@ -143,7 +152,6 @@ function Home() {
         <div className="file-upload">
           <h2>Upload File</h2>
           <div>
-            <p className="upload-label">Choose File</p>
             <input
               type="file"
               className="file-input"
@@ -153,7 +161,7 @@ function Home() {
               onClick={uploadFile}
               disabled={isUploading || !selectedFile}
             >
-              {isUploading ? "Uploading..." : "Upload"}
+              Upload
             </button>
           </div>
           {isUploading && <div className="loader">Loading...</div>}
@@ -193,7 +201,7 @@ function Home() {
             {files.map(([id, name, uploadDate]) => (
               <tr key={id}>
                 <td>{name}</td>
-                <td>{uploadDate.toLocaleString()}</td>
+                <td>{uploadDate}</td>
                 <td>
                   <button onClick={() => downloadFile(id, name)}>
                     Download
