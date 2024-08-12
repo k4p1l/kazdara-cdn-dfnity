@@ -4,6 +4,7 @@
       "main": "src/kazdara_cdn_backend/main.mo",
       "type": "motoko"
     },
+    
     "kazdara_cdn_frontend": {
       "dependencies": [
         "kazdara_cdn_backend"

@@ -1,6 +1,5 @@
 import bg from "../public/bg.png";
 import logo from "../public/logo.png";
-import "./Home.css";
 
 import { kazdara_cdn_backend } from "declarations/kazdara_cdn_backend";
 import { useEffect, useState } from "react";
@@ -158,6 +157,7 @@ function Home() {
                 className="file-input"
                 onChange={handleFileChange}
               />
+              <p className="warning">*The file size must be less than 2MB.</p>
               <button
                 onClick={uploadFile}
                 disabled={isUploading || !selectedFile}
@@ -187,37 +187,38 @@ function Home() {
             )}
           </div>
         </section>
-        <section className="uploaded-files">
+        <section className="uploaded-files-section">
           <h3>Uploaded Files</h3>
-
-          <table>
-            <thead>
-              <tr>
-                <th>File Name</th>
-                <th>Upload Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {files.map(([id, name, uploadDate]) => (
-                <tr key={id}>
-                  <td>{name}</td>
-                  <td>{uploadDate}</td>
-                  <td>
-                    <button onClick={() => downloadFile(id, name)}>
-                      Download
-                    </button>
-                    <button
-                      onClick={() => deleteFile(id)}
-                      disabled={isDeleting[id]}
-                    >
-                      {isDeleting[id] ? "Deleting..." : "Delete"}
-                    </button>
-                  </td>
+          <div className="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>File Name</th>
+                  <th>Upload Date</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {files.map(([id, name, uploadDate]) => (
+                  <tr key={id}>
+                    <td>{name}</td>
+                    <td>{uploadDate}</td>
+                    <td>
+                      <button onClick={() => downloadFile(id, name)}>
+                        Download
+                      </button>
+                      <button
+                        onClick={() => deleteFile(id)}
+                        disabled={isDeleting[id]}
+                      >
+                        {isDeleting[id] ? "Deleting..." : "Delete"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
     </>

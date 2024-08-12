@@ -10,14 +10,6 @@ import Iter "mo:base/Iter";
 
 actor{
     private type FileId = Text;
-    private type DateTimeStruct = {
-        year: Int;
-        month: Nat;
-        day: Nat;
-        hour: Nat;
-        minute: Nat;
-        second: Nat;
-    };
 
     type HeaderField = (Text, Text);
 
@@ -38,7 +30,7 @@ actor{
       name : Text;
       owner : Principal;
       content : Blob;
-       uploadDate: Text; // Storing as Text
+      uploadDate: Text; 
     };
 
     private let fileStore = HashMap.HashMap<FileId, FileInfo>(20, Text.equal, Text.hash);
