@@ -1,5 +1,6 @@
 import bg from "../public/bg.png";
 import logo from "../public/logo.png";
+import FormatDate from "./FormatDate";
 
 import { kazdara_cdn_backend } from "declarations/kazdara_cdn_backend";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ function Home() {
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [cdnLink, setCdnLink] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     listFiles();
@@ -140,6 +142,20 @@ function Home() {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+    searchFiles(event.target.value);
+  };
+
+  const searchFiles = async (query) => {
+    try {
+      const searchResult = await kazdara_cdn_backend.searchFiles(query);
+      setFiles(searchResult);
+    } catch (error) {
+      console.error("Error searching files:", error);
+    }
+  };
+
   return (
     <>
       <header className="header">
@@ -190,19 +206,30 @@ function Home() {
         <section className="uploaded-files-section">
           <h3>Uploaded Files</h3>
           <div className="table-wrapper">
+            <input
+              className="search-bar"
+              type="text"
+              placeholder="Search file name..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
             <table>
               <thead>
                 <tr>
+                  <th>Sno</th>
                   <th>File Name</th>
                   <th>Upload Date</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {files.map(([id, name, uploadDate]) => (
+                {files.map(([id, name, uploadDate], index) => (
                   <tr key={id}>
+                    <td>{index + 1}</td>
                     <td>{name}</td>
-                    <td>{uploadDate}</td>
+                    <td>
+                      <FormatDate uploadDateNanoseconds={uploadDate} />
+                    </td>
                     <td>
                       <button onClick={() => downloadFile(id, name)}>
                         Download

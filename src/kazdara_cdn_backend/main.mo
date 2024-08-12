@@ -13,36 +13,21 @@ actor{
 
     type HeaderField = (Text, Text);
 
-    type HttpRequest = {
-    method: Text;
-    url: Text;
-    headers: [HeaderField];
-    body: Blob;
-    };
-
-    type HttpResponse = {
-    status_code: Nat16;
-    headers: [HeaderField];
-    body: Blob;
-    };
 
     private type FileInfo = {
       name : Text;
       owner : Principal;
       content : Blob;
-      uploadDate: Text; 
+      uploadDate: Time.Time;
     };
 
     private let fileStore = HashMap.HashMap<FileId, FileInfo>(20, Text.equal, Text.hash);
 
     public shared(msg) func uploadFile(name : Text, content : Blob) : async FileId {
-    let id = name # "-" # Nat.toText(fileStore.size());
+    let id = Nat.toText(fileStore.size());
     let caller = msg.caller;
-    let now = Time.now();
-    let dateTime = DateTime.fromTime(now);
-
-    let uploadDate = dateTime.toText();  // Convert DateTime to Text
-
+    
+    let uploadDate = Time.now();
     fileStore.put(id, { name = name; content = content; owner = caller; 
     uploadDate = uploadDate; });
     return id;
@@ -52,8 +37,8 @@ actor{
         fileStore.get(id)
     };
 
-    public shared query (msg) func listFiles() : async [(FileId, Text, Text)] {
-    var result : [(FileId, Text, Text)] = [];
+    public shared query (msg) func listFiles() : async [(FileId, Text, Time.Time)] {
+    var result : [(FileId, Text, Time.Time)] = [];
     let caller = msg.caller;
     for (entry in fileStore.entries()) {
       let fileId = entry.0;
@@ -101,4 +86,21 @@ actor{
         };
         return null;
     };    
+
+    public query func searchFiles(searchQuery: Text) : async [(FileId, Text, Time.Time)] {
+        var result : [(FileId, Text, Time.Time)] = [];
+        let lowercaseQuery = Text.toLowercase(searchQuery);
+
+        for (entry in fileStore.entries()) {
+            let fileId = entry.0;
+            let fileName = Text.toLowercase(entry.1.name);
+
+            if (Text.contains(fileName, #text lowercaseQuery)) {
+                result := Array.append(result, [(fileId, entry.1.name, entry.1.uploadDate)]);
+            }
+        };
+
+        return result;
+};
+
 }
